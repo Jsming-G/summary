@@ -1,3 +1,5 @@
+# markdown的语法整理
+
 # 一级标题
 
 ## 二级标题
@@ -34,11 +36,11 @@
 
 ## --图片
 
-![图片](https://www.zybuluo.com/static/img/logo.png)
+![图片](https://github.com/Jamin2Guan/summary/assets/images/markdown-logo.png)
 
 ## --链接
 
-[链接](https://www.aaa.com)
+[链接](https://github.com/Jamin2Guan/summary)
 
 - [ ] uncheck1
 - [ ] uncheck1
