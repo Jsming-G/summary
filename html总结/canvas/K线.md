@@ -2,7 +2,7 @@
 
 * 效果图
 
-![图片](https://github.com/Jamin2Guan/summary/blob/master/assets/images/candle.png)
+![图片](https://github.com/Jamin2Guan/summary/blob/master/assets/images/k-candle.png)
 
 * html代码
 
