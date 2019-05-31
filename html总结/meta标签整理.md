@@ -1,5 +1,19 @@
 # meta标签的各种使用说明
 
+> META标签可分为两大部分：HTTP-EQUIV和NAME变量
+
+* 用以说明主页制作所使用的文字以及语言编码
+
+```html
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+```
+
+* 定时让网页在指定的时间n内，跳转到你的页面；
+
+```html
+<meta http-equiv="Refresh" content="n;url=https://github.com/Jamin2Guan/summary">
+```
+
 * 告诉IE浏览器，无论是否用DTD声明文档标准，IE8/9都会以IE7引擎来渲染页面
 
 ```html
@@ -98,38 +112,40 @@
 <meta name="msapplication-tap-highlight" content="no">
 ```
 
-* 
+* robots用来告诉搜索机器人哪些页面需要索引，哪些页面不需要索引
 
 ```html
-
+<meta name="robots" content="none">
 ```
 
-* 
+> content的参数有all,none,index,noindex,follow,nofollow。默认是all。
+
+* 标注网页的作者
 
 ```html
-
+<meta name="author" content="zhangsan,lisi">
 ```
 
-* 
+* 视图模式
 
 ```html
-
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 ```
 
-* 
+* keywords用来告诉搜索引擎你网页的关键字是什么
 
 ```html
-
+<meta name="keywords"content="word1,word2">
 ```
 
-* 
+* description用来告诉搜索引擎你的网站主要内容
 
 ```html
-
+<meta name="description"content="desc content">
 ```
 
-* 
+* 禁止浏览器从本地计算机的缓存中访问页面内容
 
 ```html
-
+<meta http-equiv="Pragma" content="no-cache">
 ```
