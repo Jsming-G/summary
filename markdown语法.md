@@ -36,7 +36,7 @@
 
 ## --图片
 
-![图片](https://github.com/Jamin2Guan/summary/assets/images/markdown-logo.png)
+![图片](https://github.com/Jamin2Guan/summary/blob/master/assets/images/markdown-logo.png)
 
 ## --链接
 
