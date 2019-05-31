@@ -1,0 +1,82 @@
+# 绘制K线、蜡烛线
+
+* 效果图
+
+![图片](https://github.com/Jamin2Guan/summary/blob/master/assets/images/candle.png)
+
+* html代码
+
+```html
+<canvas id="kCanvas"></canvas>
+```
+
+* js代码
+
+```javascript
+var canvas = document.getElementById('kCanvas');
+var ctx = canvas.getContext('2d');
+canvas.width = document.documentElement.clientWidth;
+canvas.height = document.documentElement.clientHeight;
+// 画线
+function drawLine(x, y, X, Y, color) {
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(X, Y);
+  ctx.strokeStyle = color;
+  ctx.stroke();
+  ctx.closePath();
+}
+// 开、收、低、高
+var data = [
+  [320.26, 302.6, 287.3, 362.94],
+  [300, 291.3, 288.26, 308.38],
+  [295.35, 346.5, 295.35, 346.92],
+  [347.22, 358.98, 337.35, 363.8],
+  [360.75, 382.48, 347.89, 383.76],
+  [383.43, 385.42, 371.23, 391.82],
+  [377.41, 419.02, 369.57, 421.15],
+  [425.92, 428.15, 417.58, 440.38],
+  [411, 433.13, 403.3, 437.42],
+  [432.68, 434.48, 427.7, 441.73],
+  [430.69, 418.53, 394.22, 433.89],
+  [416.62, 432.4, 414.4, 443.03],
+  [441.91, 421.56, 415.43, 444.8],
+  [420.26, 382.91, 373.53, 427.07],
+  [383.49, 397.18, 370.61, 397.94],
+  [378.82, 325.95, 309.17, 378.82],
+  [322.94, 314.16, 308.76, 330.88],
+  [320.62, 325.82, 315.01, 338.78],
+  [313.74, 293.34, 289.89, 340.71],
+  [297.77, 313.22, 292.03, 324.63],
+  [322.32, 365.59, 308.92, 366.16],
+  [364.54, 359.51, 330.86, 369.65],
+  [332.08, 273.4, 259.25, 333.54],
+  [274.81, 326.31, 270.1, 328.14],
+  [333.61, 347.18, 321.6, 351.44],
+  [340.44, 324.29, 304.27, 352.02],
+  [326.42, 318.61, 314.59, 333.67],
+  [314.68, 310.59, 296.58, 320.96],
+  [309.16, 286.6, 264.83, 333.29],
+  [282.17, 263.97, 253.25, 286.33]
+];
+// 画矩形
+function drawRect(x, y, w, h, color) {
+  ctx.beginPath();
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, w, h);
+}
+// 数据处理
+for (let index = 0; index < data.length; index++) {
+  const element = data[index];
+  const [open, close, low, high] = element;
+  var h = canvas.height;
+  var x = 5 + index * 7;
+  var w = 5;
+  ctx.fillRect(x, h - open, w, open - close);
+  var lastOpen = !data[index - 1] ? 0 : data[index - 1][1];
+  var color = close > lastOpen ? 'red' : 'green';
+  drawRect(x, h - open, w, open - close, color);
+  drawLine(x + 2.5, h - close, x + 2.5, h - low, color); // 下
+  drawLine(x + 2.5, h - open, x + 2.5, h - high, color); // 上
+}
+```
