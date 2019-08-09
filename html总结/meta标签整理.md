@@ -149,3 +149,7 @@
 ```html
 <meta http-equiv="Pragma" content="no-cache">
 ```
+
+```html
+<meta name="referrer" content="never">
+```
