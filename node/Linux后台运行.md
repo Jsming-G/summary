@@ -1,7 +1,7 @@
 # 服务器后台运行node服务 - screen全屏窗口管理器
 
 > 进入命令
-> screen -S test1
+> screen -S test1(窗口名称)
 
 > 窗口列表
 > screen -ls
