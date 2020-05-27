@@ -16,4 +16,7 @@
   @blur: @size- @spread;
   box-shadow: @x-offset @y-offset @blur @spread @color;
 }
+
+
+text-shadow： 5px 5px 5px #FF0000;（水平阴影，垂直阴影，模糊距离，阴影颜色）
 ```
