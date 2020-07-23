@@ -1,4 +1,4 @@
-# ip 拦截限制
+# nginx拦截指定国家或城市跳转页面
 
 ## 参考 https://www.jb51.net/article/86850.htm
 
