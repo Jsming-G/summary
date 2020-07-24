@@ -1,95 +1,62 @@
-# nginx拦截指定国家或城市跳转页面
+# nginx 拦截指定国家或城市跳转页面
 
-## 参考 https://www.jb51.net/article/86850.htm
+### 参考(https://www.cnblogs.com/rvs-2016/p/12552376.html)
 
-- 安装 Nginx
+- 下载 nginx (http://nginx.org/en/download.html)
 
-```python
-$ sudo apt-get install nginx
+```
+# 解压
+tar -xzvf nginx-1.18.0.tar.gz
+
+# 安装依赖
+yum -y install pcre-devel openssl openssl-devel
+
+# 安装
+./configure --prefix=/usr/local/nginx
 ```
 
-- 安装 Geoip 模块
+- 下载 GeoIP
 
-```python
-$ wget http://geolite.maxmind.com/download/geoip/api/c/GeoIP-1.4.8.tar.gz
-$ ./configure
-$ make
-$ make install
 ```
-或
-```python
-$ sudo apt-get install nginx-module-geoip
-```
+# 解压
+tar -xzvf GeoIP-1.4.8
 
-- 下载 Geoip 数据文件，解压，复制到 /etc/nginx/geoip 备用
+# 安装
+./configure && make && make install
 
-```python
-$ wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz # ip数据
-
-$ wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz # 城市数据
-
-$ gzip -d -k GeoLiteCity.dat.gz
-
-$ sudo mkdir /etc/nginx/geoip
-
-$ sudo cp GeoLiteCity.dat  /etc/nginx/geoip
+# /usr/local/share/GeoIP/下会生成GeoIP.dat文件
 ```
 
-- 配置 Nginx，实现 Geoip 根据 IP 识别城市，并跳转不同页面的功能
+- 安装 nginx 的 GeoIP 模块
 
-1. 在 nginx.conf 中设置 Geoip City 数据库入口
-
-```python
-$ sudo vi /etc/nginx/nginx.conf
+```
+# 进入 nginx-1.18.0
+./configure --prefix=/usr/local/nginx --with-http_geoip_module && make && make install
 ```
 
-在 http 里面添加下面代码：
+- nginx 配置
 
-```python
-$ geoip_city /etc/nginx/geoip/GeoLiteCity.dat;
 ```
+geoip_country /usr/local/share/GeoIP/GeoIP.dat;
 
-2. 配置 default 文件
+fastcgi_param GEOIP_COUNTRY_CODE $geoip_country_code;
+# fastcgi_param GEOIP_COUNTRY_CODE3 $geoip_country_code3;
+# fastcgi_param GEOIP_COUNTRY_NAME $geoip_country_name;
 
-```python
-$ sudo vi /etc/nginx/sites-available/default
-```
 
-在location中增加以下代码：
-```python
-set $flag 0;
+server {
+    listen  80;
+    server_name www.test.com;
 
-if ( $http_user_agent ~ "(baidu.Transcoder)|(mini)|(Android)|(blackberry)|(googlebot-mobile)|(iemobile)|(Mobile)|(ipad)|(iphone)|(ipod)|(opera mobile)|(palmos)|(webos)|(ucweb)|(Windows Phone)|(Symbian)|(hpwOS)" ) {
-    set $flag "${flag}1";
-}
+    location / {
+        if ($geoip_country_code = CN) {
+            # proxy_pass http://address.com
 
-if ($geoip_city_country_code = "CN") {
-    set $flag "${flag}2";
-}
+            root /drep/exchange/ip-jump; # 跳转的目录
 
-if ($geoip_region_name ~ "(Beijing|Shanghai)") {
-    set $flag "${flag}3";
-}
-
-if ($geoip_region_name ~ "(Guangdong)") {
-    set $flag "${flag}4";
-}
-
-if ($geoip_city ~ "(Guangzhou|Shenzhen)") {
-    set $flag "${flag}5";
-}
-
-# The ip in China but not in Beijing Shanghai Guangdong
-if ($flag = "012") {
-    set $flag 1;
-}
-
-# The ip in China Guangdong but not in Guangzhou Shenzhen
-if ($flag = "0124") {
-    set $flag 1;
-}
-
-if ($flag = "1") {
-    root /home/ubuntu/www/your/dir;
+            # 上面无法跳转可配置重定向指定页面
+            # rewrite ^/(.*) http://your_server_name:81/ break;
+        }
+    }
 }
 ```
