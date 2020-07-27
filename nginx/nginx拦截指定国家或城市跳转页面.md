@@ -38,11 +38,9 @@ tar -xzvf GeoIP-1.4.8
 
 ```
 geoip_country /usr/local/share/GeoIP/GeoIP.dat;
-
 fastcgi_param GEOIP_COUNTRY_CODE $geoip_country_code;
 # fastcgi_param GEOIP_COUNTRY_CODE3 $geoip_country_code3;
 # fastcgi_param GEOIP_COUNTRY_NAME $geoip_country_name;
-
 
 server {
     listen  80;
@@ -59,4 +57,18 @@ server {
         }
     }
 }
+```
+
+# 后期完善记录
+
+```
+------- 未成功
+# nginx 模块包未实现,后期可尝试,以下是地址
+http://nginx.org/packages/mainline/ubuntu/pool/nginx/n/nginx-module-geoip/
+-------
+```
+
+```
+# geoip 数据包下载地址 -- 新版
+https://www.maxmind.com/en/accounts/365749/geoip/downloads
 ```
