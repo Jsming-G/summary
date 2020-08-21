@@ -13,7 +13,7 @@
   - ssh-add -l
 - 删除私钥列表
   - ssh-add -D
-- 修改config配置文件
+- 修改 config 配置文件
 
 ```nginx
 # gitlab
@@ -41,3 +41,6 @@ User xiaohaozi
 
 - 测试
   - ssh -T git@github.com
+  - ssh -vT git@github.com
+
+* 公司的 repository 下 git config user.name "yourname" git config user.email "youremail"
